@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FraudGuard educational transaction risk screening demo." />
+  <title>FraudGuard | Transaction Risk</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="FraudGuard home">
+        <span class="brand-icon">🛡</span>
+        <span>Fraud<span class="brand-light">Guard</span><small>TRANSACTION INTELLIGENCE</small></span>
+      </a>
+      <div class="nav-label">WORKSPACE</div>
+      <a class="nav-item active" href="#overview"><span>▦</span> Overview</a>
+      <a class="nav-item" href="#analyzer"><span>⌕</span> Transaction analyzer</a>
+      <a class="nav-item" href="#history"><span>◷</span> Transaction history</a>
+      <div class="sidebar-bottom">
+        <div class="sidebar-status"><span class="status-dot"></span><div><b>Demo system active</b><small>Browser-based prototype</small></div></div>
+        <p>FraudGuard v1.0<br />Educational project</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">RISK OPERATIONS / OVERVIEW</div>
+          <h1>Transaction Risk Dashboard</h1>
+          <p class="subheading">Screen transactions and review suspicious activity.</p>
+        </div>
+        <div class="topbar-right"><span class="live-pill"><span class="status-dot"></span> DEMO MODE</span><div class="avatar">FG</div></div>
+      </header>
+
+      <div class="notice"><strong>Educational demo:</strong> This website uses a transparent browser-side scoring rule, not a trained machine-learning model. Do not use it for real payment decisions or enter sensitive financial information.</div>
+
+      <section id="overview" class="metrics-grid">
+        <article class="metric-card"><div class="metric-top"><span>Total analyzed</span><span class="metric-icon blue">↗</span></div><div id="totalCount" class="metric-value">0</div><div class="metric-foot">Transactions analyzed in this session</div></article>
+        <article class="metric-card"><div class="metric-top"><span>Flagged for review</span><span class="metric-icon red">!</span></div><div id="flaggedCount" class="metric-value">0</div><div class="metric-foot"><span class="red-text">Needs attention</span> · based on demo threshold</div></article>
+        <article class="metric-card"><div class="metric-top"><span>Review rate</span><span class="metric-icon amber">%</span></div><div id="reviewRate" class="metric-value">0%</div><div class="metric-foot">Flagged ÷ analyzed</div></article>
+        <article class="metric-card"><div class="metric-top"><span>Review threshold</span><span class="metric-icon green">⌁</span></div><div id="thresholdMetric" class="metric-value">50%</div><div class="metric-foot">Adjust threshold in analyzer</div></article>
+      </section>
+
+      <section class="content-grid">
+        <article id="analyzer" class="panel analyzer-panel">
+          <div class="panel-heading"><div><div class="eyebrow">SCREENING TOOL</div><h2>Analyze a transaction</h2><p>Enter sample transaction signals below.</p></div><span class="panel-symbol">⌁</span></div>
+          <form id="transactionForm">
+            <label for="amount">Transaction amount <span>(INR ₹)</span></label>
+            <div class="input-wrap"><span class="input-prefix">₹</span><input id="amount" type="number" min="0" max="10000000" step="100" value="15000" required /></div>
+            <div class="form-row">
+              <div><label for="hour">Transaction hour</label><select id="hour"><option value="0">12 AM (00:00)</option><option value="1">1 AM (01:00)</option><option value="2" selected>2 AM (02:00)</option><option value="3">3 AM (03:00)</option><option value="4">4 AM (04:00)</option><option value="5">5 AM (05:00)</option><option value="6">6 AM (06:00)</option><option value="7">7 AM (07:00)</option><option value="8">8 AM (08:00)</option><option value="9">9 AM (09:00)</option><option value="10">10 AM (10:00)</option><option value="11">11 AM (11:00)</option><option value="12">12 PM (12:00)</option><option value="13">1 PM (13:00)</option><option value="14">2 PM (14:00)</option><option value="15">3 PM (15:00)</option><option value="16">4 PM (16:00)</option><option value="17">5 PM (17:00)</option><option value="18">6 PM (18:00)</option><option value="19">7 PM (19:00)</option><option value="20">8 PM (20:00)</option><option value="21">9 PM (21:00)</option><option value="22">10 PM (22:00)</option><option value="23">11 PM (23:00)</option></select></div>
+              <div><label for="frequency">Transactions last hour</label><input id="frequency" type="number" min="0" max="100" value="8" required /></div>
+            </div>
+            <label for="international">International transaction?</label>
+            <select id="international"><option value="no">No</option><option value="yes" selected>Yes</option></select>
+            <div class="threshold-box"><div class="threshold-heading"><label for="threshold">Flagging threshold</label><strong id="thresholdValue">50%</strong></div><input id="threshold" type="range" min="10" max="90" value="50" step="5" /><div class="range-labels"><span>10% · More alerts</span><span>90% · Fewer alerts</span></div></div>
+            <button class="primary-button" type="submit"><span>Analyze transaction</span><span>→</span></button>
+          </form>
+          <div id="result" class="result-box hidden" aria-live="polite"></div>
+        </article>
+
+        <article class="panel model-panel">
+          <div class="panel-heading"><div><div class="eyebrow">SYSTEM DETAILS</div><h2>Risk screening signals</h2><p>Illustrative scoring logic used in this demo.</p></div></div>
+          <div class="signal-list">
+            <div class="signal-row"><div class="signal-icon">₹</div><div><b>Transaction amount</b><small>Higher values increase the demo score.</small></div><span class="signal-weight">35%</span></div>
+            <div class="signal-row"><div class="signal-icon">◷</div><div><b>Transaction time</b><small>Overnight activity receives extra weight.</small></div><span class="signal-weight">20%</span></div>
+            <div class="signal-row"><div class="signal-icon">↗</div><div><b>Transaction frequency</b><small>Many transactions in an hour increase risk.</small></div><span class="signal-weight">25%</span></div>
+            <div class="signal-row"><div class="signal-icon">◎</div><div><b>International activity</b><small>International status adds a demo risk factor.</small></div><span class="signal-weight">20%</span></div>
+          </div>
+          <div class="model-note"><span>ⓘ</span><p><b>Interpret with care</b><br />This score is a simple illustrative heuristic. It is not a calibrated probability of fraud and is not based on real banking data.</p></div>
+        </article>
+      </section>
+
+      <section id="history" class="panel history-panel">
+        <div class="panel-heading history-heading"><div><div class="eyebrow">SESSION ACTIVITY</div><h2>Transaction history</h2><p>Recent transactions analyzed in this browser session.</p></div><button id="clearHistory" class="secondary-button" type="button">Clear history</button></div>
+        <div class="table-wrap"><table><thead><tr><th>TRANSACTION</th><th>AMOUNT</th><th>TIME</th><th>INTERNATIONAL</th><th>DEMO RISK SCORE</th><th>STATUS</th></tr></thead><tbody id="historyBody"><tr class="empty-row"><td colspan="6">No transactions analyzed yet. Submit a sample transaction to get started.</td></tr></tbody></table></div>
+      </section>
+      <footer>FraudGuard · College project prototype <span>Runs entirely in your browser · No data is sent to a server</span></footer>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
