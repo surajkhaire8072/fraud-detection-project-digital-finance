@@ -1,0 +1,4 @@
+project_id = "fraudguard-demo"
+
+[functions.score-transaction]
+verify_jwt = true
