@@ -3,8 +3,8 @@
  * Replace SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY with your own values.
  * A publishable key is intended for browser use; NEVER paste a secret/service_role key here.
  */
-const SUPABASE_URL = "https://YOUR_PROJECT_REF.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+const SUPABASE_URL = "https://fmzqgytejetgtikjhfoe.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_PIB1E4_JKP2QZz5QN_JQ8w_tlVlPgkz";
 
 let client = null;
 let authMode = "signin";
